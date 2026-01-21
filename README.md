@@ -73,9 +73,10 @@ src/
 
    ```
 
-   ```
+
 
    ## 🧠 Core Logic Highlights
+   ```
 
 ### Debounced Search
 
