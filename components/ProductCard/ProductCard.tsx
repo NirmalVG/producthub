@@ -31,7 +31,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         )}
       </div>
 
-      <CardContent className="flex flex-1 flex-col gap-2 pt-4">
+      <CardContent className="flex flex-1 flex-col gap-2">
         <h3 className="line-clamp-2 text-sm font-semibold leading-tight text-foreground">
           {product.title}
         </h3>
@@ -40,7 +40,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           {product.description}
         </p>
 
-        <div className="flex items-center gap-1 pt-1">
+        <div className="flex items-center ">
           <div className="flex items-center gap-0.5">
             {[...Array(5)].map((_, i) => (
               <Star
@@ -63,7 +63,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         </Badge>
       </CardContent>
 
-      <CardFooter className="flex flex-col gap-3 border-t pt-4">
+      <CardFooter className="flex flex-col gap-2 border-t">
         <div className="w-full">
           <p className="text-2xl font-bold text-primary">
             ${product.price.toFixed(2)}
