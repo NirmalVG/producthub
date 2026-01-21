@@ -15,6 +15,7 @@ const Header = () => {
           alt="Product Hub Logo"
           width={50}
           height={50}
+          priority
         />
         <h2 className="text-xl font-bold">ProductHub</h2>
       </Link>

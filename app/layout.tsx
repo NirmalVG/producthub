@@ -17,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Product Hub",
-  description: "Product Hub Application",
+  description:
+    "Explore a vast collection of high-quality products with real-time search, smart filtering, and seamless infinite browsing. Your one-stop hub for everything you need.",
 }
 
 export default function RootLayout({
