@@ -11,6 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
+const SCROLL_HIDE_THRESHOLD = 40
+
 const SearchArea = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -19,6 +21,7 @@ const SearchArea = () => {
   const currentSort = searchParams.get("sort") || "name"
 
   const [inputValue, setInputValue] = useState(currentSearch)
+  const [hideTitle, setHideTitle] = useState(false)
 
   useEffect(() => {
     setInputValue(currentSearch)
@@ -37,6 +40,17 @@ const SearchArea = () => {
     return () => clearTimeout(timeout)
   }, [inputValue, currentSearch, router, searchParams])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setHideTitle(window.scrollY > SCROLL_HIDE_THRESHOLD)
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
+
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   const handleSortChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString())
     params.set("sort", value)
@@ -45,8 +59,12 @@ const SearchArea = () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-      <div className="flex flex-col gap-6">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+      <div className="flex flex-col">
+        <h1
+          className={`text-3xl font-bold tracking-tight text-foreground transition-all duration-300 ease-in-out
+            ${hideTitle ? "opacity-0 -translate-y-2 h-0 overflow-hidden" : "opacity-100 translate-y-0 h-auto mb-4"}
+          `}
+        >
           Products
         </h1>
 
