@@ -5,6 +5,8 @@ import ProductCard from "../ProductCard/ProductCard"
 import LoadingSkeleton from "../LoadingSkeletn/LoadingSkeleton"
 import { useSearchParams } from "next/navigation"
 import { useInView } from "react-intersection-observer"
+import { Button } from "../ui/button"
+import { ArrowUp } from "lucide-react"
 
 const ProductList = () => {
   const searchParams = useSearchParams()
@@ -45,6 +47,13 @@ const ProductList = () => {
     throw new Error("Failed to load products")
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
+
   const products = data?.pages.flatMap((page) => page.products) || []
 
   if (products.length === 0) {
@@ -70,15 +79,29 @@ const ProductList = () => {
         ))}
       </div>
 
-      <div ref={ref} className="mt-10 flex justify-center py-4">
+      <div
+        ref={ref}
+        className="mt-10 flex flex-col items-center justify-center gap-4 py-8"
+      >
         {isFetchingNextPage ? (
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+          <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary" />
         ) : hasNextPage ? (
           <p className="text-sm text-muted-foreground">Scroll for more</p>
         ) : (
-          <p className="text-sm text-muted-foreground">
-            You've reached the end.
-          </p>
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-sm font-medium text-muted-foreground">
+              You've reached the end of the catalog.
+            </p>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={scrollToTop}
+              className="gap-2 cursor-pointer"
+            >
+              <ArrowUp className="h-4 w-4" />
+              Back to Top
+            </Button>
+          </div>
         )}
       </div>
     </div>
