@@ -71,12 +71,7 @@ src/
 4. **Open the project:**
    Navigate to [http://localhost:3000](http://localhost:3000) to see the result.
 
-   ```
-
-
-
    ## 🧠 Core Logic Highlights
-   ```
 
 ### Debounced Search
 
