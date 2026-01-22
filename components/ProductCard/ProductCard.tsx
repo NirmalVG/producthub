@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardFooter, CardContent } from "@/components/ui/card"
-import { Product } from "@/types/product"
 import { ShoppingCart, Star } from "lucide-react"
 import Image from "next/image"
 import { Badge } from "../ui/badge"
+import { ProductCardProps } from "@/types/product"
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product, priority }: ProductCardProps) => {
   const stockStatus = product.stock > 0 ? "In Stock" : "Out of Stock"
   const stockColor =
     product.stock > 0
@@ -20,6 +20,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           alt={product.title}
           fill
           className="object-cover transition-transform duration-300 hover:scale-105"
+          priority={priority}
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
         {product.stock === 0 && (

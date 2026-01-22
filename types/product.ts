@@ -50,3 +50,8 @@ export interface ProductResponse {
   skip: number
   limit: number
 }
+
+export interface ProductCardProps {
+  product: Product
+  priority?: boolean
+}
