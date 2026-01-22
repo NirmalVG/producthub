@@ -21,6 +21,8 @@ const ProductCard = ({ product, priority }: ProductCardProps) => {
           fill
           className="object-cover transition-transform duration-300 hover:scale-105"
           priority={priority}
+          // @ts-ignore - Some TS versions might flag fetchPriority
+          fetchPriority={priority ? "high" : "auto"}
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
         {product.stock === 0 && (
