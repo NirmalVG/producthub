@@ -8,24 +8,39 @@ export const fetchProducts = async ({
   pageParam?: number
 }) => {
   const limit = 20
-  const baseUrl = search
+
+  let sortBy = ""
+  let order = "asc"
+
+  if (sort === "price-asc") {
+    sortBy = "price"
+    order = "asc"
+  }
+  if (sort === "price-desc") {
+    sortBy = "price"
+    order = "desc"
+  }
+  if (sort === "name") {
+    sortBy = "title"
+    order = "asc"
+  }
+
+  let baseUrl = search
     ? `https://dummyjson.com/products/search?q=${search}&limit=${limit}&skip=${pageParam}`
     : `https://dummyjson.com/products?limit=${limit}&skip=${pageParam}`
+
+  if (sortBy) {
+    baseUrl += `&sortBy=${sortBy}&order=${order}`
+  }
 
   const res = await fetch(baseUrl)
   if (!res.ok) throw new Error("Failed to fetch")
   const data = await res.json()
 
-  let products = data.products
-  if (sort === "price-asc") products.sort((a: any, b: any) => a.price - b.price)
-  if (sort === "price-desc")
-    products.sort((a: any, b: any) => b.price - a.price)
-  if (sort === "name")
-    products.sort((a: any, b: any) => a.title.localeCompare(b.title))
-
   return {
-    products,
-    nextSkip: data.skip + data.limit,
+    products: data.products,
+    skip: data.skip,
     total: data.total,
+    limit: data.limit,
   }
 }
